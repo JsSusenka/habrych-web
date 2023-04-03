@@ -51,6 +51,15 @@ export default function Home() {
     [sliderCount]
   );
 
+  const average = useMemo<number>(
+    () => sliderSum / +sliderCount,
+    [sliderSum, sliderCount]
+  );
+
+  useEffect(() => {
+    if (sliderCount === 0) setSliderSum(0);
+  }, [sliderCount]);
+
   return (
     <AppShell
       padding="md"
@@ -64,9 +73,9 @@ export default function Home() {
       footer={
         <Footer height={60} p="md">
           <Center>
-            <Text>
-              Průměřný výsledek: {(sliderSum / +sliderCount).toFixed(2)}%
-            </Text>
+            {!isNaN(average) && +sliderCount > 0 && (
+              <Text>Průměřný výsledek: {average.toFixed(2)}%</Text>
+            )}
           </Center>
         </Footer>
       }
