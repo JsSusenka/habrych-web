@@ -27,6 +27,10 @@ function CustomSlider({ setSum }: CustomSliderProps) {
     setSum((prev) => {
       return prev + diff;
     });
+
+    return () => {
+      setSum((prev) => prev - value);
+    };
   }, [value]);
 
   return (
