@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   AppShell,
   Header,
@@ -14,7 +14,9 @@ import { Slider } from "components/Slider";
 import { useSliderStore } from "stores/useSliderStore";
 
 export default function Home() {
-  const { count, sliders, setSliderCount } = useSliderStore();
+  const { count, sliders, sum, setSliderCount } = useSliderStore();
+
+  const average = useMemo<number>(() => sum / count, [sum, count]);
 
   return (
     <AppShell
@@ -29,10 +31,9 @@ export default function Home() {
       footer={
         <Footer height={60} p="md">
           <Center>
-            {/*
-            {!isNaN(average) && +sliderCount > 0 && (
+            {!isNaN(average) && count > 0 && (
               <Text>Průměřný výsledek: {average.toFixed(2)}%</Text>
-            )}*/}
+            )}
           </Center>
         </Footer>
       }
