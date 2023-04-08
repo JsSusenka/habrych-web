@@ -7,11 +7,13 @@ interface SliderProps {
 
 //TODO: slider multipliers
 
-export function Slider({}: SliderProps) {
+export function Slider({ id }: SliderProps) {
+  const { updateSliderValue } = useSliderStore();
+
   return (
     <SliderBase
       my={10}
-      onChangeEnd={(value) => console.log(value)}
+      onChangeEnd={(value) => updateSliderValue(id, value)}
       marks={[
         { value: 20, label: "20%" },
         { value: 50, label: "50%" },
