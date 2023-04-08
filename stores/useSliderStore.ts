@@ -51,11 +51,19 @@ export const useSliderStore = create<SliderState>()((set, getState) => ({
         return slider;
       }),
     })),
-  setSliderCount: (count) =>
-    set((state) => ({
+  setSliderCount: (count) => {
+    const { count: prevSliderCount, addSlider, sliders } = getState();
+
+    const sliderCountDiff = count - prevSliderCount;
+
+    for (let i = 0; i < Math.abs(sliderCountDiff); i++)
+      sliderCountDiff > 0 ? addSlider() : sliders.pop();
+
+    return set((state) => ({
       ...state,
       count,
-    })),
+    }));
+  },
   setSliderSum: (sum) =>
     set((state) => ({
       ...state,

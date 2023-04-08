@@ -1,68 +1,20 @@
-import React, { useMemo, useState, useCallback, useEffect } from "react";
+import React from "react";
 import {
   AppShell,
   Header,
   Group,
   Text,
   Center,
-  Slider,
   Stack,
   Divider,
   NumberInput,
   Footer,
 } from "@mantine/core";
-import { usePrevious } from "@mantine/hooks";
-
-interface CustomSliderProps {
-  setSum: React.Dispatch<React.SetStateAction<number>>;
-}
-
-function CustomSlider({ setSum }: CustomSliderProps) {
-  const [value, setValue] = useState<number>(0);
-  const previousValue = usePrevious(value);
-
-  useEffect(() => {
-    const diff = value - (previousValue ? previousValue : 0);
-
-    setSum((prev) => {
-      return prev + diff;
-    });
-
-    return () => {
-      setSum((prev) => prev - value);
-    };
-  }, [value]);
-
-  return (
-    <Slider
-      my={10}
-      onChangeEnd={setValue}
-      marks={[
-        { value: 20, label: "20%" },
-        { value: 50, label: "50%" },
-        { value: 80, label: "80%" },
-      ]}
-    />
-  );
-}
+import { Slider } from "components/Slider";
+import { useSliderStore } from "stores/useSliderStore";
 
 export default function Home() {
-  const [sliderCount, setSliderCount] = useState<number | "">(0);
-  const [sliderSum, setSliderSum] = useState<number>(0);
-
-  const sliders = useMemo<number[]>(
-    () => Array.from({ length: +sliderCount }, (_, i) => i + 1),
-    [sliderCount]
-  );
-
-  const average = useMemo<number>(
-    () => sliderSum / +sliderCount,
-    [sliderSum, sliderCount]
-  );
-
-  useEffect(() => {
-    if (sliderCount === 0) setSliderSum(0);
-  }, [sliderCount]);
+  const { count, sliders, setSliderCount } = useSliderStore();
 
   return (
     <AppShell
@@ -77,9 +29,10 @@ export default function Home() {
       footer={
         <Footer height={60} p="md">
           <Center>
+            {/*
             {!isNaN(average) && +sliderCount > 0 && (
               <Text>Průměřný výsledek: {average.toFixed(2)}%</Text>
-            )}
+            )}*/}
           </Center>
         </Footer>
       }
@@ -100,7 +53,7 @@ export default function Home() {
           placeholder="Zadejte počet sliderů"
           label="Počet sliderů"
           withAsterisk
-          value={sliderCount}
+          value={count}
           onChange={setSliderCount}
         />
       </Center>
@@ -109,7 +62,7 @@ export default function Home() {
 
       <Stack spacing="xl">
         {sliders.map((slider) => (
-          <CustomSlider key={`slider-${slider}`} setSum={setSliderSum} />
+          <Slider id={slider.id} />
         ))}
       </Stack>
     </AppShell>
