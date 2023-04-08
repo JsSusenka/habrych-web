@@ -62,7 +62,7 @@ export default function Home() {
 
       <Stack spacing="xl">
         {sliders.map((slider) => (
-          <Slider id={slider.id} />
+          <Slider key={slider.id} id={slider.id} />
         ))}
       </Stack>
     </AppShell>
