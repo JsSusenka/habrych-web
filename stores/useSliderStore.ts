@@ -17,6 +17,7 @@ interface SliderState {
   updateSliderMultiplier: (id: string, multiplier: number) => void;
   setSliderCount: (count: number) => void;
   setSliderSum: (sum: number) => void;
+  calculateSliderSum: () => void;
 }
 
 export const useSliderStore = create<SliderState>()((set, getState) => ({
@@ -33,7 +34,9 @@ export const useSliderStore = create<SliderState>()((set, getState) => ({
       ...state,
       sliders: state.sliders.filter((filter) => filter.id !== id),
     })),
-  updateSliderValue: (id, value) =>
+  updateSliderValue: (id, value) => {
+    const { calculateSliderSum } = getState();
+
     set((state) => ({
       ...state,
       sliders: state.sliders.map((slider) => {
@@ -41,7 +44,10 @@ export const useSliderStore = create<SliderState>()((set, getState) => ({
 
         return slider;
       }),
-    })),
+    }));
+
+    return calculateSliderSum();
+  },
   updateSliderMultiplier: (id, multiplier) =>
     set((state) => ({
       ...state,
@@ -52,21 +58,40 @@ export const useSliderStore = create<SliderState>()((set, getState) => ({
       }),
     })),
   setSliderCount: (count) => {
-    const { count: prevSliderCount, addSlider, sliders } = getState();
+    const {
+      count: prevSliderCount,
+      sliders,
+      addSlider,
+      calculateSliderSum,
+    } = getState();
 
     const sliderCountDiff = count - prevSliderCount;
 
     for (let i = 0; i < Math.abs(sliderCountDiff); i++)
       sliderCountDiff > 0 ? addSlider() : sliders.pop();
 
-    return set((state) => ({
+    set((state) => ({
       ...state,
       count,
     }));
+
+    return calculateSliderSum();
   },
   setSliderSum: (sum) =>
     set((state) => ({
       ...state,
       sum,
     })),
+  calculateSliderSum: () => {
+    const { sliders } = getState();
+
+    let sum = 0;
+
+    for (const slider of sliders) sum += slider.value;
+
+    return set((state) => ({
+      ...state,
+      sum,
+    }));
+  },
 }));
