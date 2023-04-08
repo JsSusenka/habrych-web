@@ -9,7 +9,7 @@ interface SliderProps {
 //TODO: slider multipliers
 
 export function Slider({ id }: SliderProps) {
-  const { updateSliderValue } = useSliderStore();
+  const { updateSliderValue, updateSliderMultiplier } = useSliderStore();
 
   return (
     <Grid align="center">
@@ -29,6 +29,7 @@ export function Slider({ id }: SliderProps) {
           min={1}
           max={100}
           label="Násobič hodnoty"
+          onChange={(value) => updateSliderMultiplier(id, +value)}
           withAsterisk
         />
       </Grid.Col>
