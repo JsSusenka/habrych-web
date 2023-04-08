@@ -9,6 +9,7 @@ export interface Slider {
 
 interface SliderState {
   count: number;
+  sum: number;
   sliders: Slider[];
   addSlider: () => void;
   removeSlider: (id: string) => void;
@@ -18,6 +19,7 @@ interface SliderState {
 
 export const useSliderStore = create<SliderState>()((set, getState) => ({
   count: 0,
+  sum: 0,
   sliders: [],
   addSlider: () =>
     set((state) => ({
