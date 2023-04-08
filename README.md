@@ -4,7 +4,7 @@ Tento web byl vytvořen pro jednoho mého vyučujícího.
 Je to `proof-of-concept` že mě ve škole nic nenaučí a samostudijem se toho naučím více. 
 Prvotní verze byla napsaná při hodině českého jazyka. 
 Kvulí "aušovosti" první verze, jsem se jí rozhodl přepsat.
----
+
 ## Jak používat 
 
 Production verze webu běží na stránce [odkaz](https://habrych-web.vercel.app/).
