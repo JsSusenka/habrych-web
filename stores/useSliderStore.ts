@@ -48,7 +48,9 @@ export const useSliderStore = create<SliderState>()((set, getState) => ({
 
     return calculateSliderSum();
   },
-  updateSliderMultiplier: (id, multiplier) =>
+  updateSliderMultiplier: (id, multiplier) => {
+    const { calculateSliderSum } = getState();
+
     set((state) => ({
       ...state,
       sliders: state.sliders.map((slider) => {
@@ -56,7 +58,10 @@ export const useSliderStore = create<SliderState>()((set, getState) => ({
 
         return slider;
       }),
-    })),
+    }));
+
+    return calculateSliderSum();
+  },
   setSliderCount: (count) => {
     const {
       count: prevSliderCount,
@@ -87,7 +92,7 @@ export const useSliderStore = create<SliderState>()((set, getState) => ({
 
     let sum = 0;
 
-    for (const slider of sliders) sum += slider.value;
+    for (const slider of sliders) sum += slider.value * slider.multiplier;
 
     return set((state) => ({
       ...state,
