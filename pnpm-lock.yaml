@@ -11,6 +11,7 @@ specifiers:
   '@types/react-dom': 18.0.11
   '@types/uuid': ^9.0.1
   next: 13.2.4
+  prettier: ^2.8.7
   react: 18.2.0
   react-dom: 18.2.0
   typescript: 5.0.3
@@ -33,6 +34,9 @@ dependencies:
   typescript: 5.0.3
   uuid: 9.0.0
   zustand: 4.3.7_react@18.2.0
+
+devDependencies:
+  prettier: 2.8.7
 
 packages:
 
@@ -972,6 +976,12 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
     dev: false
+
+  /prettier/2.8.7:
+    resolution: {integrity: sha512-yPngTo3aXUUmyuTjeTUT75txrf+aMh9FiD7q9ZE/i6r0bPb22g4FsE6Y338PQX1bmfy08i9QQCB7/rcUAVntfw==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: true
 
   /process-nextick-args/2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
