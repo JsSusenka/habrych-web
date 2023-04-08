@@ -15,6 +15,8 @@ interface SliderState {
   removeSlider: (id: string) => void;
   updateSliderValue: (id: string, value: number) => void;
   updateSliderMultiplier: (id: string, multiplier: number) => void;
+  setSliderCount: (count: number) => void;
+  setSliderSum: (sum: number) => void;
 }
 
 export const useSliderStore = create<SliderState>()((set, getState) => ({
@@ -48,5 +50,15 @@ export const useSliderStore = create<SliderState>()((set, getState) => ({
 
         return slider;
       }),
+    })),
+  setSliderCount: (count) =>
+    set((state) => ({
+      ...state,
+      count,
+    })),
+  setSliderSum: (sum) =>
+    set((state) => ({
+      ...state,
+      sum,
     })),
 }));
