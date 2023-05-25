@@ -13,6 +13,7 @@ import {
 } from "@mantine/core";
 import { Slider } from "components/Slider";
 import { useSliderStore } from "stores/useSliderStore";
+import Link from "next/link";
 
 export default function Home() {
   const { count, sliders, sum, setSliderCount } = useSliderStore();
@@ -30,6 +31,9 @@ export default function Home() {
           <Header height={60} p="xs">
             <Group my={5}>
               <Text fz="lg">Hodnocení kriterii</Text>
+              <Text fz="lg" component={Link} href="/logic" c="blue">
+                Logické výrazy
+              </Text>
             </Group>
           </Header>
         }
